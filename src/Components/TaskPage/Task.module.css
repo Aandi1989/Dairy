@@ -1,0 +1,144 @@
+.wrapper{
+    box-shadow: 0px 0px 10px 1px rgba(97, 97, 97, 0.144);
+    border-radius:10px;
+    position: relative;
+    width: 99%;
+    margin: 0 auto;
+    /* overflow: hidden; */
+    
+}
+
+.task_stats,.task_stats_opened{
+    display: flex;
+    margin: 15px 0;
+    padding: 15px;
+    z-index: 1;
+}
+.task_stats_opened{
+    padding: 15px 15px 0 15px;
+}
+.date{
+    margin-right: 30px;
+}
+.date{
+    width:90px; 
+}
+.title{
+    margin-right: 10px;
+    width: 110px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.checkbox{
+    margin:5px 20px 0 ;
+}
+.picture{
+    cursor: pointer;
+}
+.picture__img_opened{
+    transform: rotate(180deg);
+  transition: all 0.3s;
+}
+.picture__img_opened,.picture__img{
+    cursor: pointer;
+}
+.task_body_opened{
+    padding:15px;
+    border-top: 2px solid rgb(242,239,239);
+    
+}
+.task_body_closed{
+    display: none;
+}
+.icon_edit,.icon_save{
+    margin:3px 0 0 auto;
+}
+.icon_edit:hover,.icon_save:hover{
+transform: scale(1.2);
+cursor: pointer;
+transition: all 0.3s;
+}
+.title_input{
+    width: 110px;
+    margin-right: 10px;
+    border-radius:3px;
+    border-width:1px;
+    padding: 0 3px;
+}
+.text_textarea_open{
+    resize: none;
+    width: 95%;
+    min-height:130px ;
+    border-radius:3px;
+    margin: 10px;
+    padding: 15px;
+}
+.text_textarea_close{
+    display: none;
+}
+.error,.empty_error{
+    /* margin-left: 10px; */
+    height: 15px;
+}
+.error{
+    font-size: 15px;
+    color: red;
+    font-weight: 700;
+    margin-left: 20px;
+}
+.bg_open{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(57, 55, 72, 0.22);
+    z-index: 2;
+}
+.wrapper_status{
+    display: flex;
+}
+.status__picture{
+    margin-left: 8px;
+    /* cursor: pointer; */
+    position: relative;
+}
+.status_list_bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index:3;
+}
+.status_list_box{
+    position: absolute;
+    width: 100px;
+    top: 30px;
+    left: -60px;
+    border: 1px solid black;
+    background:white;
+    border-radius:3px;
+    padding: 5px;
+    box-shadow: 0px 0px 10px 1px rgba(97, 97, 97, 0.144);
+    z-index: 4;
+    animation: openListStatus 0.3s;
+}
+.status_list_item{
+    cursor: pointer;
+}
+.status_list_item:hover{
+    font-weight: 600;
+    transition: all 0.2s;
+}
+@keyframes openListStatus {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+

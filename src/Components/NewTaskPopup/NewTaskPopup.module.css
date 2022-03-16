@@ -1,0 +1,88 @@
+.wrapper{
+    /* new code */
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(57, 55, 72, 0.22);
+    z-index: 3;
+}
+.wrapper_newTask{
+    width: 380px;
+    min-height: 420px;
+    border-radius:10px;
+    padding: 20px;
+    /* new code */
+    position: absolute;
+    top: 5%;
+    left: 35%;
+    background:white;
+    border-radius:10px;
+
+}
+.header{
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 15px;
+}
+.title_box,.text_box{
+    font-size: 15px;
+    margin-left: 10px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.title_input{
+    width: 100%;
+    border-radius:5px;
+    margin-bottom: 20px;
+    border-width: 1px;
+    padding: 0 5px;
+}
+.text_textarea{
+    resize: none;
+    width: 100%;
+    min-height:120px ;
+    border-radius:5px;
+    margin-bottom: 20px;
+    padding: 0 5px;
+}
+.error,.empty_error{
+    margin-bottom: 40px;
+    height: 15px;
+}
+.error{
+    font-size: 15px;
+    margin-left: 10px;
+    color: red;
+    font-weight: 700;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+}
+.buttons__cancel,.buttons__send{
+    font-weight: 700;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    border:none;
+    min-width: 90px;
+}
+.buttons__send{
+    background-color:rgb(22,102 ,221)
+}
+.buttons__cancel{
+    background-color:rgb(235,87,87)
+}
+
+.wrapper_saveTask{
+    position: absolute;
+    top: 65%;
+    left: 35%;
+    background:white;
+    border-radius:10px;
+}

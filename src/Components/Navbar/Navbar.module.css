@@ -1,0 +1,67 @@
+.wrapper{
+margin-bottom: 30px;
+position: relative;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.taskInfo__date,.taskInfo__title,.taskInfo__status{
+min-width: 90px;
+margin-right: 30px;
+text-align: center;
+padding: 5px;
+}
+.status_Buttons__button{
+    margin-right: 30px;
+    background-color:rgb(220,220,220)
+}
+.currentStatus_Buttons__button{
+    margin-right: 30px;
+    color:white;
+    background-color:black;
+}
+.default_Buttons__add{
+background-color:rgb(22,102 ,221)
+}
+.default_Buttons__delete{
+    margin-left: 30px;
+    background-color:rgb(235,87,87)
+}
+.default_Buttons__complete{
+    margin-left: 30px;
+    background-color:rgb(124,152,127)
+}
+.status_Buttons__button, .default_Buttons__complete, .default_Buttons__delete,.currentStatus_Buttons__button,.default_Buttons__add{
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    border:none;
+    min-width: 90px;
+}
+.taskInfo{
+    display: flex;
+    font-weight:600 ;
+    color:grey;
+}
+.taskInfo__date,.taskInfo__title{
+    margin-right: 30px;
+}
+.bg_open{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* background: rgba(57, 55, 72, 0.22); */
+    z-index: 2;
+}
+.newTaskPopup_open{
+    /* position: absolute;
+    top: 5%;
+    left: 35%;
+    background:white;
+    border-radius:10px; */
+}

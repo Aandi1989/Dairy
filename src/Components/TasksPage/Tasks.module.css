@@ -1,0 +1,8 @@
+.wrapper{
+    /* border:1px solid black; */
+    overflow-y: auto;
+    height: 70vh;
+}
+.wrapper::-webkit-scrollbar{
+    width: 0;
+  }
