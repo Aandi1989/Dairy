@@ -32,7 +32,6 @@ class Navbar extends React.Component{
         }
         const toogleShowNewTaskPopupHandler=()=>{
             this.toogleShowNewTaskPopup()
-            console.log('hi')
         }
         return(
             <div className={styles.wrapper}>
