@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 import { nanoid } from 'nanoid';
 import {loadTasksThunk,postNewTaskThunk} from '../../core/thunks';
 import NewTaskPopup from '../NewTaskPopup/NewTaskPopup';
+import SaveCompletedTasksPopup from '../SaveCompletedTasksPopup/SaveCompletedTasksPopup';
+import SaveDeletedTasksPopup from '../SaveDeletedTasksPopup/SaveDeletedTasksPopup'
 import {postNewTask} from '../../core/api'
 
 class Navbar extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            showNewTaskPopup:false
+            showNewTaskPopup:false,
+            showSaveCompletedTasks:false,
+            showSaveDeletedTasks:false
         }
     }
     toogleShowNewTaskPopup(){
@@ -18,20 +22,37 @@ class Navbar extends React.Component{
             showNewTaskPopup:!prevState.showNewTaskPopup
         }))
     }
+    toogleShowSaveCompletedTasks(){
+        this.setState(prevState=>({
+            showSaveCompletedTasks:!prevState.showSaveCompletedTasks
+        }))
+    }
+    toogleShowSaveDeletedTasks(){
+        this.setState(prevState=>({
+            showSaveDeletedTasks:!prevState.showSaveDeletedTasks
+        }))
+    }
     loadTasks(status){
         this.props.loadTasksThunk(status)
     }
-    componentDidMount(){
-       
-    }
     render(){
-        const {tasksStatus,currentTasksStatus}=this.props
-        const {showNewTaskPopup}=this.state
+        const {tasksStatus,currentTasksStatus,tasksToChange}=this.props
+        const {showNewTaskPopup,showSaveCompletedTasks,showSaveDeletedTasks}=this.state
         const loadTasksHandler=(status)=>()=>{
             this.loadTasks(status)
         }
         const toogleShowNewTaskPopupHandler=()=>{
             this.toogleShowNewTaskPopup()
+        }
+        const toogleShowSaveCompletedTasksHandler=()=>{
+            if(tasksToChange.length>0){
+                this.toogleShowSaveCompletedTasks()
+            }
+        }
+        const toogletoogleShowSaveDeletedTasksHandler=()=>{
+            if(tasksToChange.length>0){
+                this.toogleShowSaveDeletedTasks()
+            }
         }
         return(
             <div className={styles.wrapper}>
@@ -47,8 +68,9 @@ class Navbar extends React.Component{
                     </div>
                      <div className={styles.default_Buttons}>
                         <button onClick={toogleShowNewTaskPopupHandler} className={styles.default_Buttons__add}>Add</button>
-                        <button className={styles.default_Buttons__complete}>Complete</button>
-                        <button className={styles.default_Buttons__delete}>Delete</button>
+                        <button onClick={toogleShowSaveCompletedTasksHandler} 
+                        className={styles.default_Buttons__complete}>Complete</button>
+                        <button onClick={toogletoogleShowSaveDeletedTasksHandler} className={styles.default_Buttons__delete}>Delete</button>
                     </div> 
                 </div>
                 <div className={styles.taskInfo}>
@@ -61,6 +83,12 @@ class Navbar extends React.Component{
                         <NewTaskPopup toogleShowNewTaskPopupHandler={toogleShowNewTaskPopupHandler}/>    
                     </div>   
                 </div>}
+                {showSaveCompletedTasks && tasksToChange.length>0 && <div className={styles.bg_open}>
+                        <SaveCompletedTasksPopup toogleShowSaveCompletedTasksHandler={toogleShowSaveCompletedTasksHandler}/>    
+                </div>}
+                {showSaveDeletedTasks && tasksToChange.length>0 && <div className={styles.bg_open}>
+                        <SaveDeletedTasksPopup toogletoogleShowSaveDeletedTasksHandler={toogletoogleShowSaveDeletedTasksHandler} />    
+                </div>}
             </div>
         )
     }
@@ -68,7 +96,8 @@ class Navbar extends React.Component{
 
 const mapStateToProps=state=>({
     tasksStatus:state.tasksReducer.tasksStatus,
-    currentTasksStatus:state.tasksReducer.currentTasksStatus
+    currentTasksStatus:state.tasksReducer.currentTasksStatus,
+    tasksToChange:state.tasksReducer.tasksToChange
 })
 
 export default connect(mapStateToProps,{loadTasksThunk,postNewTask,postNewTaskThunk})(Navbar)

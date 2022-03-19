@@ -33,3 +33,11 @@ export const putNewTask = async (task) => {
   const request = await resopnse.json()
   return request;          
 }
+
+export const deleteTask = async (id) => {
+  const resopnse = await fetch(`http://localhost:7777/tasks?id=${id}`, {
+    method: 'DELETE',
+  })
+  const request = await resopnse.json()
+  return request;
+}

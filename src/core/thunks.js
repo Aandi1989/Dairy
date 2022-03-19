@@ -4,12 +4,17 @@ import {
     loadTasksFailed,
     changeCurrentTasksStatus,
     postNewTaskAC,
-    putEditedTaskAC
+    putEditedTaskAC,
+    putEditedTasksAC,
+    clearTasksToChangeAC,
+    deleteTasksAC
+    
 } from "./actions";
 import {
     getAllTasks,
     postNewTask,
-    putNewTask
+    putNewTask,
+    deleteTask
 } from "./api"
 
 export const loadTasksThunk = (status) => {
@@ -53,6 +58,60 @@ export const putEditedTaskThunk=(task)=>{
             }
         }catch(error){
             dispatch(loadTasksFailed(error))
+        }
+    }
+}
+
+export const putEditedTasksThunk=(tasks,curStat,opt)=>{
+    return async dispatch=>{
+        if(curStat != opt){
+            dispatch(loadTasks())
+            try{
+                const editedTasks=tasks.map(el=> {
+                    return {...el,task_status:opt}
+                })
+                for await(let task of editedTasks){
+                    await putNewTask(task)
+                }
+                dispatch(putEditedTasksAC(opt))
+                dispatch(clearTasksToChangeAC()) 
+            }catch(error){
+                dispatch(loadTasksFailed(error))
+            }
+        }else{
+            dispatch(clearTasksToChangeAC()) 
+        }
+    }
+}
+
+export const deleteTasksThunk=(tasks,curStat,opt)=>{
+    return async dispatch=>{
+        if(curStat == opt){
+            dispatch(loadTasks())
+            try{
+                const tasksId=tasks.reduce((acc,val)=>[...acc,val.id],[])
+                for await(let id of tasksId){
+                    await deleteTask(id)
+                }
+                dispatch(deleteTasksAC())
+                dispatch(clearTasksToChangeAC()) 
+            }catch(error){
+                dispatch(loadTasksFailed(error))
+            }
+        }else{
+            dispatch(loadTasks())
+            try{
+                const editedTasks=tasks.map(el=> {
+                    return {...el,task_status:opt}
+                })
+                for await(let task of editedTasks){
+                    await putNewTask(task)
+                }
+                dispatch(putEditedTasksAC(opt))
+                dispatch(clearTasksToChangeAC()) 
+            }catch(error){
+                dispatch(loadTasksFailed(error))
+            }  
         }
     }
 }

@@ -3,7 +3,8 @@ import { taskTypes } from "./types"
 const initialState={
     tasks:[],
     tasksStatus:[{status:"New"},{status:"Completed"},{status:"Deleted"}],
-    currentTasksStatus:"New"
+    currentTasksStatus:"New",
+    tasksToChange:[]
 }
 
 export const tasksReducer=(state=initialState,action)=>{
@@ -31,14 +32,15 @@ export const tasksReducer=(state=initialState,action)=>{
         case taskTypes.changeCurrentTasksStatus:
             return{
                 ...state,
-                currentTasksStatus:action.payload
+                currentTasksStatus:action.payload,
+                tasksToChange:[]
             }  
             
         case taskTypes.postNewTask:
             return{
                 ...state,
                 isLoading:false,
-                tasks:[action.payload,...state.tasks]
+                tasks:[action.payload,...state.tasks].filter(task=>task.task_status==state.currentTasksStatus)
             }  
             
         case taskTypes.putEditedTask:
@@ -47,12 +49,46 @@ export const tasksReducer=(state=initialState,action)=>{
                 isLoading:false,
                 tasks:[...state.tasks].map(task=>{
                     if(task.id==action.payload.id){
-                        // console.log(task.id)
                         return action.payload
                     }else{
                         return task
                     }
-                })
+                }).filter(task=>task.task_status==state.currentTasksStatus)
+            }  
+            
+         case taskTypes.addTaskToChange:
+             return{
+                 ...state,
+                 tasksToChange:[...state.tasksToChange].some(task=>task.id==action.payload.id) ?
+                 [...state.tasksToChange].filter(task=>task.id != action.payload.id) 
+                 : [...state.tasksToChange,action.payload]
+                 
+             }   
+
+         case taskTypes.clearTasksToChange:
+             return{
+                 ...state,
+                 tasksToChange:[]
+             }
+
+        case taskTypes.putEditedTasks:
+            return{
+                ...state,
+                tasks:[...state.tasks].map(task=>{
+                    if(state.tasksToChange.some(el=>el.id==task.id)){
+                        return {...task,task_status:action.opt}
+                    }else{
+                        return task
+                    }
+                }).filter(task=>task.task_status==state.currentTasksStatus),
+                isLoading:false
+
+            }
+
+        case taskTypes.deleteTasks:
+            return{
+                ...state,
+                tasks:[...state.tasks].filter(task=>!state.tasksToChange.some(el=>el.id==task.id))
             }    
 
         default:

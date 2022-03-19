@@ -6,7 +6,8 @@ import arrow from '../../icons/arrow.png';
 import {timestampToDate} from '../../core/helpers';
 import {BiPencil} from "react-icons/bi";
 import {BiSave} from "react-icons/bi";
-import SaveEditedTaskPopup from "../SaveEditedTask/SaveEditedTaskPopup"
+import SaveEditedTaskPopup from "../SaveEditedTask/SaveEditedTaskPopup";
+import {addTaskToChangeAC} from '../../core/actions'
 
 
 class Task extends React.Component{
@@ -101,7 +102,7 @@ class Task extends React.Component{
         })
     }
     render(){
-        const {task,tasksStatus}=this.props
+        const {task,tasksStatus,addTaskToChangeAC,tasksToChange}=this.props
         const {taskOpened,editMode,text,title,error,textError,showSavePopup,showStatusList,task_status}=this.state
         const date=timestampToDate(task.creation_date)
         const editedTask={
@@ -111,7 +112,6 @@ class Task extends React.Component{
                 task_status:task_status,
                 id:task.id
         }
-        // console.log(editedTask)
         const openTaskToogleHandler=()=>{
             this.openTaskToogle()
         }
@@ -135,6 +135,10 @@ class Task extends React.Component{
         const setStatusHandler=(status)=>()=>{
             this.setStatus(status)
         }
+        const addTaskToChangeHandler=(task)=>()=>{
+            addTaskToChangeAC(task)
+        }
+        // console.log(this.props.tasksToChange)
         return(
             <div className={styles.wrapper}>
                 <div className={taskOpened ? styles.task_stats_opened : styles.task_stats}>
@@ -167,7 +171,7 @@ class Task extends React.Component{
                     {editMode ? 
                     <div onClick={onSaveIconClickHandler} className={styles.icon_save}><BiSave/></div>
                     : <div onClick={activateEditModeHandler} className={styles.icon_edit}><BiPencil/></div>}
-                    <input className={styles.checkbox} type="checkbox"/>
+                    <input onChange={addTaskToChangeHandler(task)} checked={tasksToChange.some(el=>el.id==task.id)} className={styles.checkbox} type="checkbox"/>
                     <div onClick={openTaskToogleHandler} className={styles.picture}>
                         <img className={taskOpened ? styles.picture__img_opened : undefined} src={arrow} alt='arrow' />
                     </div> 
@@ -185,7 +189,8 @@ class Task extends React.Component{
 }
 
 const mapStateToProps=state=>({
-    tasksStatus:state.tasksReducer.tasksStatus
+    tasksStatus:state.tasksReducer.tasksStatus,
+    tasksToChange:state.tasksReducer.tasksToChange
 })
 
-export default connect(mapStateToProps,{})(Task)
+export default connect(mapStateToProps,{addTaskToChangeAC})(Task)

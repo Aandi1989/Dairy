@@ -55,7 +55,7 @@ background-color:rgb(22,102 ,221)
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* background: rgba(57, 55, 72, 0.22); */
+    background: rgba(57, 55, 72, 0.22);
     z-index: 2;
 }
 .newTaskPopup_open{

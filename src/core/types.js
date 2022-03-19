@@ -4,5 +4,9 @@ export const taskTypes={
     loadTasksFailed:"loadTasksFailed",
     changeCurrentTasksStatus:"changeCurrentTasksStatus",
     postNewTask:"postNewTask",
-    putEditedTask:"putEditedTask"
+    putEditedTask:"putEditedTask",
+    addTaskToChange:"addTaskToChange",
+    clearTasksToChange:"clearTasksToChange",
+    putEditedTasks:"putEditedTasks",
+    deleteTasks:"deleteTasks"
 }
