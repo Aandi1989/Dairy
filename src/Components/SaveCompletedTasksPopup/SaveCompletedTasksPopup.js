@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './SaveCompletedTasksPopup.module.css';
 import { connect } from 'react-redux';
-import {putEditedTasksThunk} from '../../core/thunks'
+import {putEditedTasksThunk} from '../../core/thunks';
 
 class SaveTaskPopup extends React.Component{
     render(){
         const {toogleShowSaveCompletedTasksHandler,putEditedTasksThunk,currentTasksStatus,tasksToChange}=this.props
         const putEditedTasksHandler=(tasks,curStat,opt)=>()=>{
             putEditedTasksThunk(tasks,curStat,opt)
+            toogleShowSaveCompletedTasksHandler()
         }
         return(
             <div className={styles.wrapper}>

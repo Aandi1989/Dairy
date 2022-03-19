@@ -23,14 +23,14 @@ class Navbar extends React.Component{
         }))
     }
     toogleShowSaveCompletedTasks(){
-        this.setState(prevState=>({
-            showSaveCompletedTasks:!prevState.showSaveCompletedTasks
-        }))
+            this.setState(prevState=>({
+                showSaveCompletedTasks:!prevState.showSaveCompletedTasks
+            }))
     }
     toogleShowSaveDeletedTasks(){
-        this.setState(prevState=>({
-            showSaveDeletedTasks:!prevState.showSaveDeletedTasks
-        }))
+            this.setState(prevState=>({
+                showSaveDeletedTasks:!prevState.showSaveDeletedTasks
+            }))
     }
     loadTasks(status){
         this.props.loadTasksThunk(status)
@@ -49,11 +49,12 @@ class Navbar extends React.Component{
                 this.toogleShowSaveCompletedTasks()
             }
         }
-        const toogletoogleShowSaveDeletedTasksHandler=()=>{
+        const toogleShowSaveDeletedTasksHandler=()=>{
             if(tasksToChange.length>0){
                 this.toogleShowSaveDeletedTasks()
             }
         }
+        console.log(tasksToChange.length,showSaveCompletedTasks,showSaveDeletedTasks)
         return(
             <div className={styles.wrapper}>
                 <div className={styles.buttons}>
@@ -70,7 +71,7 @@ class Navbar extends React.Component{
                         <button onClick={toogleShowNewTaskPopupHandler} className={styles.default_Buttons__add}>Add</button>
                         <button onClick={toogleShowSaveCompletedTasksHandler} 
                         className={styles.default_Buttons__complete}>Complete</button>
-                        <button onClick={toogletoogleShowSaveDeletedTasksHandler} className={styles.default_Buttons__delete}>Delete</button>
+                        <button onClick={toogleShowSaveDeletedTasksHandler} className={styles.default_Buttons__delete}>Delete</button>
                     </div> 
                 </div>
                 <div className={styles.taskInfo}>
@@ -87,7 +88,7 @@ class Navbar extends React.Component{
                         <SaveCompletedTasksPopup toogleShowSaveCompletedTasksHandler={toogleShowSaveCompletedTasksHandler}/>    
                 </div>}
                 {showSaveDeletedTasks && tasksToChange.length>0 && <div className={styles.bg_open}>
-                        <SaveDeletedTasksPopup toogletoogleShowSaveDeletedTasksHandler={toogletoogleShowSaveDeletedTasksHandler} />    
+                        <SaveDeletedTasksPopup toogleShowSaveDeletedTasksHandler={toogleShowSaveDeletedTasksHandler} />    
                 </div>}
             </div>
         )

@@ -138,7 +138,6 @@ class Task extends React.Component{
         const addTaskToChangeHandler=(task)=>()=>{
             addTaskToChangeAC(task)
         }
-        // console.log(this.props.tasksToChange)
         return(
             <div className={styles.wrapper}>
                 <div className={taskOpened ? styles.task_stats_opened : styles.task_stats}>
